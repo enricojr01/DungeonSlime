@@ -40,7 +40,7 @@ public class GameScene: Scene
     private GameSceneUI _ui;
     private GameState _state;
 
-    private Effect _grayscaleEffect;
+    private Effect _greyscaleEffect;
     private float _saturation = 1.0f;
     private const float FADE_SPEED = 0.02f;
 
@@ -102,7 +102,7 @@ public class GameScene: Scene
         this._collectSoundEffect = Content.Load<SoundEffect>("audio/collect");
 
         // Load the grayscale effect
-        this._grayscaleEffect = Content.Load<Effect>("effects/grayscaleEffect");
+        this._greyscaleEffect = Content.Load<Effect>("effects/greyscaleEffect");
     }
 
     public override void Update(GameTime gameTime)
@@ -142,9 +142,10 @@ public class GameScene: Scene
 
         if (this._state != GameState.Playing)
         {
-            this._grayscaleEffect.Parameters["Saturation"].SetValue(this._saturation);
-            Core.SpriteBatch.Begin(samplerState: SamplerState.PointClamp, effect: this._grayscaleEffect);
-        } else
+            this._greyscaleEffect.Parameters["Saturation"].SetValue(this._saturation);
+            Core.SpriteBatch.Begin(samplerState: SamplerState.PointClamp, effect: this._greyscaleEffect);
+        } 
+        else
         {
             Core.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
         }

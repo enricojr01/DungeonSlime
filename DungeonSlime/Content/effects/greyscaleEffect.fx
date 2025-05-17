@@ -8,6 +8,7 @@
 #endif
 
 Texture2D SpriteTexture;
+
 // Value between 0 and 1 that controls the intensity of the
 // grayscale effect.
 float Saturation = 1.0;
@@ -27,7 +28,7 @@ struct VertexShaderOutput
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
 	// Sample the texture
-	float4 color = text2D(SpriteTextureSampler, input.TextureCoordinates) * input.color;
+	float4 color = tex2D(SpriteTextureSampler, input.TextureCoordinates) * input.Color;
 
 	// Calculate the grayscale value based on human perception of colors
 	float grayscale = dot(color.rgb, float3(0.3, 0.59, 0.11));
@@ -40,7 +41,8 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 	float3 finalColor = lerp(grayscale, color.rgb, Saturation);
 
 	// return the final color with alpha value
-	return tex2D(SpriteTextureSampler,input.TextureCoordinates) * input.Color;
+    return float4(finalColor, color.a);
+
 }
 
 technique SpriteDrawing
